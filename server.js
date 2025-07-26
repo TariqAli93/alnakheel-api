@@ -5,7 +5,12 @@ import logger from "./config/logger.js";
 const PORT = Config.PORT;
 const NODE_ENV = Config.NODE_ENV;
 
-const server = http.createServer(app);
+const sslOptions = {
+  key: fs.readFileSync("./certs/key.pem"),
+  cert: fs.readFileSync("./certs/cert.pem")
+};
+
+const server = http.createServer(sslOptions, app);
 
 server.listen(PORT, () => {
   if (NODE_ENV === "development") {
