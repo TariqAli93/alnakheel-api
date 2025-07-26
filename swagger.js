@@ -12,6 +12,30 @@ const options = {
         email: "support@alnakheel.com"
       }
     },
+    servers: [
+      {
+        url: "http://187.33.150.194:3003",
+        description: "Production server"
+      },
+      {
+        url: "http://localhost:3003",
+        description: "Development server"
+      }
+    ],
+    tags: [
+      {
+        name: "Users",
+        description: "Operations related to users"
+      },
+      {
+        name: "Properties",
+        description: "Operations related to properties"
+      },
+      {
+        name: "Clients",
+        description: "Operations related to clients"
+      }
+    ],
 
     components: {
       securitySchemes: {
