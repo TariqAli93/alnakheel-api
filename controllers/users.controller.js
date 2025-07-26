@@ -86,7 +86,14 @@ export const getAllUsers = async (req, res, next) => {
     const users = await userModel.getAllUsers();
     res.status(200).json({
       message: "Users retrieved successfully",
-      users,
+      users: users.map((user) => ({
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        is_active: user.is_active,
+        is_banned: user.is_banned,
+        is_deleted: user.is_deleted
+      })),
       success: true
     });
   } catch (error) {
@@ -110,7 +117,14 @@ export const getUserById = async (req, res, next) => {
 
     res.status(200).json({
       message: "User retrieved successfully",
-      user,
+      user: {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        is_active: user.is_active,
+        is_banned: user.is_banned,
+        is_deleted: user.is_deleted
+      },
       success: true
     });
   } catch (error) {
