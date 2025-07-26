@@ -148,7 +148,14 @@ export const getUserByUsername = async (req, res, next) => {
 
     res.status(200).json({
       message: "User retrieved successfully",
-      user,
+      user: {
+        id: user.id,
+        username: user.username,
+        role: user.role,
+        is_active: user.is_active,
+        is_banned: user.is_banned,
+        is_deleted: user.is_deleted
+      },
       success: true
     });
   } catch (error) {
