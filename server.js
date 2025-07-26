@@ -1,11 +1,21 @@
-import dotenv from "dotenv";
 import http from "http";
 import app from "./app/app.js";
-const PORT = process.env.PORT || 5678;
-dotenv.config();
+import { Config } from "./config/index.js";
+import logger from "./config/logger.js";
+const PORT = Config.PORT;
+const NODE_ENV = Config.NODE_ENV;
 
 const server = http.createServer(app);
-server.listen(PORT, console.log(`Server is running on port ${PORT}`));
+
+server.listen(PORT, () => {
+  if (NODE_ENV === "development") {
+    logger.info(`[✨] Environment: ${Config.NODE_ENV} 🛠️`);
+  } else if (NODE_ENV === "production") {
+    logger.info(`[✨] Environment: ${Config.NODE_ENV} 🌐`);
+  }
+  logger.info(`Server is running on port ${PORT}`);
+});
+
 server.on("error", (error) => {
-  console.error("Server error:", error);
+  logger.error("Server error:", error);
 });

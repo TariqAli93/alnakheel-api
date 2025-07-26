@@ -1,15 +1,15 @@
 {
-    "compilerOptions": {
-        "baseUrl": "src",
-        "paths": {
-            "@utils/*": ["src/utils/*"],
-            "@routes/*": ["src/routes/*"],
-            "@controllers/*": ["src/controllers/*"],
-            "@config/*": ["src/config/*"],
-            "@middlewares/*": ["src/middlewares/*"],
-            "@validations/*": ["src/validations/*"],
-            "@services/*": ["src/services/*"]
-        }
-    },
-    "include": ["src"]
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@utils/*": ["utils/*"],
+      "@routes/*": ["routes/*"],
+      "@controllers/*": ["controllers/*"],
+      "@config/*": ["config/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@validations/*": ["validations/*"],
+      "@services/*": ["services/*"]
+    }
+  },
+  "include": ["src"]
 }
