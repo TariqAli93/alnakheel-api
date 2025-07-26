@@ -2,6 +2,7 @@ import http from "http";
 import app from "./app/app.js";
 import { Config } from "./config/index.js";
 import logger from "./config/logger.js";
+import fs from "fs";
 const PORT = Config.PORT;
 const NODE_ENV = Config.NODE_ENV;
 
