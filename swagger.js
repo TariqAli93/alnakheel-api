@@ -12,16 +12,7 @@ const options = {
         email: "support@alnakheel.com"
       }
     },
-    servers: [
-      {
-        url: "http://localhost:3000",
-        description: "Development server"
-      },
-      {
-        url: "https://api.alnakheel.com",
-        description: "Production server"
-      }
-    ],
+
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -279,7 +270,7 @@ const options = {
       }
     ]
   },
-  apis: ["./routes/*.js", "./controllers/*.js"]
+  apis: ["./routes/*.js"]
 };
 
 const swaggerSpec = swaggerJSDoc(options);
