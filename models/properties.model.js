@@ -40,6 +40,9 @@ export const getProperties = async () => {
             client: true
           }
         }
+      },
+      where: {
+        is_deleted: false
       }
     });
     return properties;
@@ -53,7 +56,7 @@ export const getPropertyById = async (id) => {
   }
   try {
     const property = await prisma.properties.findUnique({
-      where: { id: parseInt(id) },
+      where: { id: parseInt(id), is_deleted: false },
       include: {
         PropertyClient: {
           include: {
