@@ -4,7 +4,11 @@ export const generateToken = (user) => {
   if (!user || !user.id || !user.username) {
     throw new Error("Invalid user object for token generation.");
   }
-  const payload = user;
+  const payload = {
+    id: user.id,
+    username: user.username,
+    role: user.role
+  };
   const secretKey = process.env.JWT_SECRET || "your-secret-key";
   const options = { expiresIn: "1h" };
   return jwt.sign(payload, secretKey, options);
