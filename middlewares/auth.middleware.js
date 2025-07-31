@@ -24,7 +24,7 @@ export const authMiddleware = (req, res, next) => {
     if (isBrowserRequest(req)) {
       return res.status(401).sendFile(errorPage);
     } else {
-      return res.status(401).json({ error: "Unauthorized" });
+      return res.status(401).json({ message: "Unauthorized", success: false });
     }
   } else {
     try {
@@ -33,14 +33,14 @@ export const authMiddleware = (req, res, next) => {
         if (isBrowserRequest(req)) {
           return res.status(401).sendFile(errorPage);
         } else {
-          return res.status(401).json({ error: "Unauthorized" });
+          return res.status(401).json({ message: "Unauthorized", success: false });
         }
       }
     } catch (error) {
       if (isBrowserRequest(req)) {
         return res.status(401).sendFile(errorPage);
       } else {
-        return res.status(401).json({ error: "Unauthorized" });
+        return res.status(401).json({ message: "Unauthorized", success: false });
       }
     }
   }
