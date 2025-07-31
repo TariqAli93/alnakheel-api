@@ -1,6 +1,5 @@
 import express from "express";
 import morgan from "morgan";
-import fs from "fs";
 import path from "path";
 import cors from "cors";
 import helmet from "helmet";
@@ -34,18 +33,8 @@ app.use(morgan("dev"));
 app.use(helmet());
 app.use(api_compression);
 
-// Global error handler should be after routes
-app.use(global_error_handler);
-
-app.use((req, res, next) => {
-  res.setHeader("Origin-Agent-Cluster", "?1");
-  next();
-});
-
-// set authentication middleware as function to be used in specific routes
-app.use("/api", authMiddleware);
-
 app.use((err, req, res, next) => {
+  console.error(err);
   if (err.status === 401) {
     res.status(401).sendFile(path.join(__dirname, "public", "errors", "401.html"));
   } else {
@@ -53,23 +42,14 @@ app.use((err, req, res, next) => {
   }
 });
 
+// Global error handler should be after routes
+app.use(global_error_handler);
+
+// set authentication middleware as function to be used in specific routes
+app.use("/api", authMiddleware);
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/uploads", express.static("uploads"));
 app.use(express.static("public")); // لخدمة ملفات public
-
-app.get("/uploads/:filename", (req, res) => {
-  const filename = req.params.filename;
-  const imagePath = path.join(__dirname, "uploads", filename);
-
-  fs.readFile(imagePath, (err, data) => {
-    if (err) {
-      res.status(404).send("Image not found");
-    } else {
-      res.writeHead(200, { "Content-Type": "image/jpeg" }); // أو نوع المحتوى المناسب
-      res.end(data);
-    }
-  });
-});
 
 // Initialize routes
 usersRouter(app);
