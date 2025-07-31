@@ -5,136 +5,109 @@
     <title>دخول غير مصرح</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap");
       html,
       body {
-        background: linear-gradient(135deg, #24272b 0%, #101113 100%);
+        background: linear-gradient(135deg, #232428 0%, #16171a 100%);
         min-height: 100vh;
         margin: 0;
         padding: 0;
         font-family: "Cairo", Arial, Tahoma, sans-serif;
-        color: #eee;
+        color: #ededed;
       }
       body {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        position: relative;
-        overflow: hidden;
       }
       .container {
-        background: rgba(30, 32, 35, 0.96);
-        border-radius: 28px;
-        box-shadow: 0 0 60px 0 #18181b, 0 8px 32px 0 #000a;
-        max-width: 410px;
-        width: 95vw;
+        background: rgba(28, 29, 32, 0.98);
+        border-radius: 30px;
+        box-shadow: 0 8px 32px #101113d1, 0 0 0 2.5px #2f2f32cc;
+        padding: 2.6rem 2.2rem 2.1rem 2.2rem;
+        max-width: 390px;
+        width: 93vw;
         text-align: center;
-        padding: 2.5rem 2rem 2rem 2rem;
-        position: relative;
       }
-      .skull {
-        margin: 0 auto 17px auto;
-        width: 84px;
-        height: 84px;
+      .icon-lock {
+        width: 74px;
+        height: 74px;
+        margin: 0 auto 18px auto;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #32343a 60%, #19191b 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        background: linear-gradient(135deg, #202124 60%, #33363b 100%);
-        border-radius: 50%;
-        box-shadow: 0 0 28px #0009, 0 2px 18px #18181b99;
-        border: 2.5px solid #49494b;
+        box-shadow: 0 2px 14px #161619c0;
       }
-      .skull svg {
-        width: 58px;
-        height: 58px;
+      .icon-lock svg {
+        width: 38px;
+        height: 38px;
         display: block;
       }
       .code-num {
         display: inline-block;
         background: #232427;
         color: #aaa;
-        border-radius: 7px;
-        padding: 1px 15px;
+        border-radius: 8px;
+        padding: 2px 16px;
         font-size: 1.07rem;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         font-weight: 700;
-        letter-spacing: 2px;
+        letter-spacing: 1.5px;
       }
       h1 {
         margin: 0 0 11px 0;
-        color: #eee;
+        color: #ededed;
         font-size: 2.1rem;
         font-weight: 900;
-        letter-spacing: 1.5px;
-        text-shadow: 0 3px 24px #23232a9c;
+        letter-spacing: 2px;
+        font-family: "Cairo", Arial, Tahoma, sans-serif;
+        text-shadow: 0 2px 18px #11111460;
       }
       p {
-        color: #bbbbbe;
-        font-size: 1.16rem;
-        margin: 16px 0 27px 0;
+        color: #bbbcc0;
+        font-size: 1.15rem;
+        margin: 18px 0 0 0;
         line-height: 1.8;
-      }
-      a {
-        background: linear-gradient(90deg, #44464a 0%, #232426 100%);
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.08rem;
-        padding: 11px 28px;
-        border-radius: 8px;
-        font-weight: bold;
-        box-shadow: 0 2px 18px #19192090;
-        letter-spacing: 1px;
-        border: 1.5px solid #49494b;
-        transition: background 0.14s, box-shadow 0.22s, transform 0.15s;
-        display: inline-block;
-      }
-      a:hover {
-        background: linear-gradient(90deg, #232426 0%, #44464a 100%);
-        box-shadow: 0 5px 25px #2b2b2fdd;
-        transform: scale(1.04) translateY(-1.5px);
+        font-family: "Cairo", Arial, Tahoma, sans-serif;
       }
       @media (max-width: 500px) {
         .container {
-          padding: 1.5rem 0.5rem 1.1rem 0.5rem;
+          padding: 1.4rem 0.4rem 1rem 0.4rem;
         }
-        .skull {
-          width: 62px;
-          height: 62px;
+        .icon-lock {
+          width: 52px;
+          height: 52px;
         }
-        .skull svg {
-          width: 42px;
-          height: 42px;
+        .icon-lock svg {
+          width: 28px;
+          height: 28px;
         }
         h1 {
-          font-size: 1.3rem;
+          font-size: 1.25rem;
         }
       }
     </style>
   </head>
   <body>
     <div class="container" dir="rtl">
-      <div class="skull">
-        <!-- Skull SVG (شعار جمجمة ناعم) -->
-        <svg viewBox="0 0 64 64" fill="none">
-          <ellipse cx="32" cy="34" rx="21" ry="21" fill="#26292c" stroke="#44464a" stroke-width="3" />
-          <ellipse cx="32" cy="37" rx="14" ry="12" fill="#232427" />
-          <ellipse cx="24" cy="33" rx="3.8" ry="4.5" fill="#18181b" />
-          <ellipse cx="40" cy="33" rx="3.8" ry="4.5" fill="#18181b" />
-          <ellipse cx="28" cy="43.5" rx="1.1" ry="2.2" fill="#434345" />
-          <ellipse cx="36" cy="43.5" rx="1.1" ry="2.2" fill="#434345" />
-          <ellipse cx="32" cy="46" rx="1.2" ry="2.3" fill="#656569" />
-          <path d="M20,28 Q24,24 32,26 Q40,24 44,28" stroke="#38383b" stroke-width="2" fill="none" />
+      <div class="icon-lock">
+        <!-- Modern Lock SVG Logo -->
+        <svg viewBox="0 0 32 32" fill="none">
+          <rect x="8" y="14" width="16" height="11" rx="4.5" stroke="#ededed" stroke-width="2.2" fill="none" />
+          <circle cx="16" cy="21" r="2" fill="#ededed" />
+          <path d="M12 14v-3a4 4 0 1 1 8 0v3" stroke="#ededed" stroke-width="2" fill="none" stroke-linecap="round" />
         </svg>
       </div>
       <div class="code-num">401</div>
       <h1>دخول غير مصرح</h1>
       <p>
-        ليس لديك إذن بالدخول إلى هذه الصفحة.<br />
-        المنطقة التي تحاول الوصول إليها محمية أو خطيرة.<br />
-        إذا كنت تعتقد أن هذا خطأ، تواصل مع الدعم.
+        ليس لديك صلاحية الوصول إلى هذه الصفحة.<br />
+        تم منع الدخول حفاظًا على الأمان أو الخصوصية.<br />
+        إذا كنت تعتقد أن هناك خطأ، يرجى التواصل مع الدعم الفني.
       </p>
-      <a href="/">عودة للصفحة الرئيسية</a>
     </div>
   </body>
 </html>
