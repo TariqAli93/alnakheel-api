@@ -13,6 +13,7 @@ import swaggerSpec from "../swagger.js";
 //Middlewares
 import api_compression from "../middlewares/api_compression.middleware.js";
 import global_error_handler from "../middlewares/global_error_handler.middleware.js";
+import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 // Initialize routes
 import usersRouter from "../routes/users.route.js";
@@ -40,6 +41,10 @@ app.use((req, res, next) => {
   res.setHeader("Origin-Agent-Cluster", "?1");
   next();
 });
+
+// set authentication middleware
+app.use(authMiddleware);
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/uploads", express.static("uploads"));
 
