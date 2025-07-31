@@ -12,16 +12,6 @@ const options = {
         email: "support@alnakheel.com"
       }
     },
-    servers: [
-      {
-        url: "http://187.33.150.194:3003",
-        description: "Production server"
-      },
-      {
-        url: "http://localhost:3003",
-        description: "Development server"
-      }
-    ],
     tags: [
       {
         name: "Users",
@@ -40,7 +30,7 @@ const options = {
     components: {
       securitySchemes: {
         bearerAuth: {
-          type: "http",
+          type: "https",
           scheme: "bearer",
           bearerFormat: "JWT"
         }
