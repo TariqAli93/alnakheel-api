@@ -5,212 +5,136 @@
     <title>دخول غير مصرح</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Share+Tech+Mono&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap");
       html,
       body {
-        background: radial-gradient(ellipse at 70% 30%, #3d0101 0%, #111111 100%);
+        background: linear-gradient(135deg, #24272b 0%, #101113 100%);
         min-height: 100vh;
         margin: 0;
         padding: 0;
-        color: #e84545;
-        font-family: "Cairo", "Share Tech Mono", monospace, Arial, Tahoma, sans-serif;
+        font-family: "Cairo", Arial, Tahoma, sans-serif;
+        color: #eee;
       }
       body {
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
+        position: relative;
         overflow: hidden;
-        position: relative;
       }
-      .smoke {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        background: url("https://i.imgur.com/pjB0b8Q.png");
-        opacity: 0.08;
-        mix-blend-mode: lighten;
-        z-index: 1;
-      }
-      .box {
-        position: relative;
-        z-index: 2;
-        background: rgba(20, 20, 20, 0.9);
-        border-radius: 18px;
-        box-shadow: 0 0 60px #360008, 0 0 120px #a10000bb inset;
-        padding: 2.5rem 2rem 2rem 2rem;
-        text-align: center;
-        max-width: 400px;
+      .container {
+        background: rgba(30, 32, 35, 0.96);
+        border-radius: 28px;
+        box-shadow: 0 0 60px 0 #18181b, 0 8px 32px 0 #000a;
+        max-width: 410px;
         width: 95vw;
-        animation: fade-in 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-        border: 2px solid #8b0000;
-        backdrop-filter: blur(2px);
+        text-align: center;
+        padding: 2.5rem 2rem 2rem 2rem;
+        position: relative;
       }
-      @keyframes fade-in {
-        from {
-          opacity: 0;
-          transform: translateY(80px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .icon-lock {
-        width: 82px;
-        height: 82px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, #a10000 70%, #190000 100%);
-        margin: 0 auto 20px auto;
+      .skull {
+        margin: 0 auto 17px auto;
+        width: 84px;
+        height: 84px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 0 25px #900, 0 2px 16px #000a;
-        animation: shake 0.9s 0.1s;
+        background: linear-gradient(135deg, #202124 60%, #33363b 100%);
+        border-radius: 50%;
+        box-shadow: 0 0 28px #0009, 0 2px 18px #18181b99;
+        border: 2.5px solid #49494b;
       }
-      @keyframes shake {
-        0% {
-          transform: translateX(0);
-        }
-        20% {
-          transform: translateX(-8px);
-        }
-        40% {
-          transform: translateX(8px);
-        }
-        60% {
-          transform: translateX(-6px);
-        }
-        80% {
-          transform: translateX(4px);
-        }
-        100% {
-          transform: translateX(0);
-        }
-      }
-      .icon-lock svg {
-        width: 44px;
-        height: 44px;
-        color: #e84545;
-        filter: drop-shadow(0 0 8px #d22323aa);
-      }
-      h1 {
-        font-size: 2.4rem;
-        margin: 0 0 9px 0;
-        color: #e84545;
-        font-weight: 900;
-        letter-spacing: 2px;
-        font-family: "Share Tech Mono", "Cairo", Arial, monospace;
-        text-shadow: 0 0 12px #d2232380, 0 0 24px #ff000066;
-        animation: pulse 2.5s infinite;
-      }
-      @keyframes pulse {
-        0%,
-        100% {
-          text-shadow: 0 0 12px #d2232380, 0 0 24px #ff000066;
-        }
-        50% {
-          text-shadow: 0 0 32px #e84545cc, 0 0 70px #ff000055;
-        }
+      .skull svg {
+        width: 58px;
+        height: 58px;
+        display: block;
       }
       .code-num {
         display: inline-block;
-        background: #200;
-        color: #e84545;
-        border-radius: 9px;
-        padding: 2px 14px;
-        font-size: 1.08rem;
-        margin-bottom: 5px;
+        background: #232427;
+        color: #aaa;
+        border-radius: 7px;
+        padding: 1px 15px;
+        font-size: 1.07rem;
+        margin-bottom: 6px;
         font-weight: 700;
         letter-spacing: 2px;
-        font-family: "Share Tech Mono", "Cairo", monospace;
-        box-shadow: 0 0 12px #e8454577 inset;
+      }
+      h1 {
+        margin: 0 0 11px 0;
+        color: #eee;
+        font-size: 2.1rem;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        text-shadow: 0 3px 24px #23232a9c;
       }
       p {
-        font-size: 1.09rem;
-        color: #ff7676;
-        margin: 20px 0 28px 0;
+        color: #bbbbbe;
+        font-size: 1.16rem;
+        margin: 16px 0 27px 0;
         line-height: 1.8;
-        text-shadow: 0 0 6px #32040499;
-      }
-      .danger-sign {
-        font-size: 2rem;
-        color: #e84545;
-        display: inline-block;
-        margin-bottom: 8px;
-        filter: drop-shadow(0 0 8px #d2232388);
-        animation: blink 1.3s infinite alternate;
-      }
-      @keyframes blink {
-        from {
-          opacity: 1;
-        }
-        to {
-          opacity: 0.5;
-        }
       }
       a {
-        background: linear-gradient(135deg, #e84545 60%, #a10000 100%);
+        background: linear-gradient(90deg, #44464a 0%, #232426 100%);
         color: #fff;
         text-decoration: none;
-        font-size: 1.1rem;
-        padding: 11px 32px;
+        font-size: 1.08rem;
+        padding: 11px 28px;
         border-radius: 8px;
         font-weight: bold;
+        box-shadow: 0 2px 18px #19192090;
         letter-spacing: 1px;
-        box-shadow: 0 2px 18px #b3121299;
-        transition: background 0.15s, transform 0.18s, box-shadow 0.21s;
+        border: 1.5px solid #49494b;
+        transition: background 0.14s, box-shadow 0.22s, transform 0.15s;
         display: inline-block;
       }
       a:hover {
-        background: linear-gradient(135deg, #a10000 40%, #e84545 100%);
-        transform: scale(1.05) translateY(-2px);
-        box-shadow: 0 6px 32px #b31212cc;
+        background: linear-gradient(90deg, #232426 0%, #44464a 100%);
+        box-shadow: 0 5px 25px #2b2b2fdd;
+        transform: scale(1.04) translateY(-1.5px);
       }
       @media (max-width: 500px) {
-        .box {
-          padding: 2rem 0.6rem 1.2rem 0.6rem;
+        .container {
+          padding: 1.5rem 0.5rem 1.1rem 0.5rem;
+        }
+        .skull {
+          width: 62px;
+          height: 62px;
+        }
+        .skull svg {
+          width: 42px;
+          height: 42px;
         }
         h1 {
-          font-size: 1.5rem;
-        }
-        .icon-lock {
-          width: 60px;
-          height: 60px;
-        }
-        .icon-lock svg {
-          width: 30px;
-          height: 30px;
+          font-size: 1.3rem;
         }
       }
     </style>
   </head>
   <body>
-    <div class="smoke"></div>
-    <div class="box" dir="rtl">
-      <span class="danger-sign">⚠️</span>
-      <div class="icon-lock">
-        <!-- Broken Lock SVG -->
-        <svg viewBox="0 0 48 48" fill="none">
-          <rect x="12" y="22" width="24" height="16" rx="6" stroke="currentColor" stroke-width="2.2" fill="none" />
-          <path d="M24 31v3" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" />
-          <circle cx="24" cy="28" r="2" fill="currentColor" />
-          <path d="M17 22v-5a7 7 0 0 1 14 0v5" stroke="currentColor" stroke-width="2.1" fill="none" />
-          <!-- علامة قفل مكسور -->
-          <path d="M20 15l4 4" stroke="#fff" stroke-width="2" stroke-linecap="round" opacity="0.5" />
+    <div class="container" dir="rtl">
+      <div class="skull">
+        <!-- Skull SVG (شعار جمجمة ناعم) -->
+        <svg viewBox="0 0 64 64" fill="none">
+          <ellipse cx="32" cy="34" rx="21" ry="21" fill="#26292c" stroke="#44464a" stroke-width="3" />
+          <ellipse cx="32" cy="37" rx="14" ry="12" fill="#232427" />
+          <ellipse cx="24" cy="33" rx="3.8" ry="4.5" fill="#18181b" />
+          <ellipse cx="40" cy="33" rx="3.8" ry="4.5" fill="#18181b" />
+          <ellipse cx="28" cy="43.5" rx="1.1" ry="2.2" fill="#434345" />
+          <ellipse cx="36" cy="43.5" rx="1.1" ry="2.2" fill="#434345" />
+          <ellipse cx="32" cy="46" rx="1.2" ry="2.3" fill="#656569" />
+          <path d="M20,28 Q24,24 32,26 Q40,24 44,28" stroke="#38383b" stroke-width="2" fill="none" />
         </svg>
       </div>
       <div class="code-num">401</div>
       <h1>دخول غير مصرح</h1>
       <p>
-        وصولك لهذه الصفحة محظور!<br />
-        ربما تحاول الدخول إلى منطقة محظورة أو ليس لديك الصلاحية.<br />
-        إذا كنت تعتقد أن هذا خطأ، تواصل مع الدعم... أو اهرب بسرعة! 😈
+        ليس لديك إذن بالدخول إلى هذه الصفحة.<br />
+        المنطقة التي تحاول الوصول إليها محمية أو خطيرة.<br />
+        إذا كنت تعتقد أن هذا خطأ، تواصل مع الدعم.
       </p>
-      <a href="/">ارجع بسرعة</a>
+      <a href="/">عودة للصفحة الرئيسية</a>
     </div>
   </body>
 </html>
