@@ -42,8 +42,8 @@ app.use((req, res, next) => {
   next();
 });
 
-// set authentication middleware
-app.use(authMiddleware);
+// set authentication middleware as function to be used in specific routes
+app.use("/api", authMiddleware);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/uploads", express.static("uploads"));
