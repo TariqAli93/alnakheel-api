@@ -45,8 +45,17 @@ app.use((req, res, next) => {
 // set authentication middleware as function to be used in specific routes
 app.use("/api", authMiddleware);
 
+app.use((err, req, res, next) => {
+  if (err.status === 401) {
+    res.status(401).sendFile(path.join(__dirname, "public", "errors", "401.html"));
+  } else {
+    next(err);
+  }
+});
+
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/uploads", express.static("uploads"));
+app.use(express.static("public")); // لخدمة ملفات public
 
 app.get("/uploads/:filename", (req, res) => {
   const filename = req.params.filename;
