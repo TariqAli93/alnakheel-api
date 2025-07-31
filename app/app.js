@@ -36,6 +36,10 @@ app.use(api_compression);
 // Global error handler should be after routes
 app.use(global_error_handler);
 
+app.use((req, res, next) => {
+  res.setHeader("Origin-Agent-Cluster", "?1");
+  next();
+});
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use("/uploads", express.static("uploads"));
 
