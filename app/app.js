@@ -18,6 +18,7 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 import usersRouter from "../routes/users.route.js";
 import propertiesRouter from "../routes/properties.route.js";
 import clientsRouter from "../routes/clients.route.js";
+import webMessagesRouter from "../routes/webMessages.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -55,5 +56,6 @@ app.use(express.static("public")); // لخدمة ملفات public
 usersRouter(app);
 propertiesRouter(app);
 clientsRouter(app);
+webMessagesRouter(app);
 
 export default app;
