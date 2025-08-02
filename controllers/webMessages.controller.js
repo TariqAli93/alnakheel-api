@@ -1,4 +1,4 @@
-import * as webMessagesModel from "../controllers/webMessages.controller.js";
+import * as webMessagesModel from "../models/webMessages.model.js";
 
 export const getWebMessages = async (req, res) => {
   try {
