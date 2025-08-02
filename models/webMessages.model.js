@@ -45,7 +45,7 @@ export const getWebMessageById = async (id) => {
 // Function to make all messages read
 export const markAllMessagesAsRead = async () => {
   try {
-    await prisma.webMessages.updateMany({
+    const result = await prisma.webMessages.updateMany({
       where: {
         is_read: false
       },
@@ -53,7 +53,7 @@ export const markAllMessagesAsRead = async () => {
         is_read: true
       }
     });
-    res.status(200).json({ success: true, message: "All messages marked as read" });
+    return result;
   } catch (error) {
     next(createHttpError(500, "Failed to mark messages as read"));
   }
@@ -61,7 +61,7 @@ export const markAllMessagesAsRead = async () => {
 
 export const markAllMessagesAsDeleted = async () => {
   try {
-    await prisma.webMessages.updateMany({
+    const result = await prisma.webMessages.updateMany({
       where: {
         is_deleted: false
       },
@@ -69,7 +69,7 @@ export const markAllMessagesAsDeleted = async () => {
         is_deleted: true
       }
     });
-    res.status(200).json({ success: true, message: "All messages marked as deleted" });
+    return result;
   } catch (error) {
     next(createHttpError(500, "Failed to mark messages as deleted"));
   }

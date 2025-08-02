@@ -40,8 +40,17 @@ export const markAllMessagesAsDeleted = async (req, res) => {
 
 // createWebMessage
 export const createWebMessage = async (req, res) => {
+  if (!req.body) {
+    return res.status(400).json({ error: "Request body is required" });
+  }
+
   try {
-    const newMessage = await webMessagesModel.createWebMessage(req.body);
+    const newMessage = await webMessagesModel.createWebMessage({
+      name: req.body.name,
+      phone: req.body.phone,
+      message: req.body.message
+    });
+
     res.status(201).json({ message: "Web message created successfully", newMessage, success: true });
   } catch (error) {
     res.status(500).json({ error: "Failed to create web message" });
