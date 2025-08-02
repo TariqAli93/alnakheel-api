@@ -360,7 +360,7 @@ import * as userController from "../controllers/users.controller.js";
  */
 
 const usersRouter = (app) => {
-  app.post("/api/users/login", userController.login);
+  app.post("/auth/users/login", userController.login);
   app.post("/api/users/register", userController.register);
   app.get("/api/users", userController.getAllUsers);
   app.get("/api/users/:id", userController.getUserById);
