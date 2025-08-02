@@ -44,6 +44,8 @@ export const createWebMessage = async (req, res) => {
     return res.status(400).json({ error: "Request body is required" });
   }
 
+  console.log("Creating web message with data:", req.body);
+
   try {
     const newMessage = await webMessagesModel.createWebMessage({
       name: req.body.name,
