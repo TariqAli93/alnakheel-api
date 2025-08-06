@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id             Int              @id @default(autoincrement())
+  username       String?          @unique @db.VarChar(200)
+  password       String?          @db.VarChar(200)
+  created_at     DateTime         @default(now()) @db.DateTime(0)
+  updated_at     DateTime         @default(now()) @updatedAt @db.DateTime(0)
+  is_active      Boolean          @default(true)
+  is_banned      Boolean          @default(false)
+  is_deleted     Boolean          @default(false)
+  refresh_tokens refresh_tokens[] // Relation to RefreshToken
+  role           Role             @default(EMPLOYEE)
+  properties     Properties[]     @relation("UserProperties")
+}
+
+model refresh_tokens {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  user_id   Int
+  user      users    @relation(fields: [user_id], references: [id])
+  expiry    DateTime
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  ADMIN
+  EMPLOYEE
+}
+
+model Properties {
+  id             Int              @id @default(autoincrement())
+  name           String?
+  type           String?
+  kind           String?
+  province       String?
+  district       String?
+  street         String?
+  block          String?
+  alley          String?
+  price          String?
+  salePrice      String?
+  owner          String?
+  phone          String?
+  area           String?
+  width          String?
+  depth          String?
+  landNumber     String?
+  neighborhood   String?
+  floors         String?
+  rooms          String?
+  bathrooms      String?
+  shops          String?
+  description    String?
+  elevator       String?
+  status         String?
+  is_deleted     Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  createdBy      users?           @relation("UserProperties", fields: [usersId], references: [id])
+  usersId        Int?
+  PropertyClient PropertyClient[]
+  PropertyImages PropertyImages[]
+}
+
+model Client {
+  id             Int              @id @default(autoincrement())
+  name           String
+  phone          String?
+  address        String?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  PropertyClient PropertyClient[]
+}
+
+model PropertyClient {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  clientId   Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  property Properties @relation(fields: [propertyId], references: [id])
+  client   Client     @relation(fields: [clientId], references: [id])
+}
+
+model Images {
+  id             Int              @id @default(autoincrement())
+  url            String
+  filename       String?
+  mimetype       String?
+  size           Int?
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @default(now()) @updatedAt
+  PropertyImages PropertyImages[]
+}
+
+model PropertyImages {
+  id         Int      @id @default(autoincrement())
+  propertyId Int
+  imageId    Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  property Properties @relation(fields: [propertyId], references: [id])
+  image    Images     @relation(fields: [imageId], references: [id])
+}
+
+model webMessages {
+  id         Int      @id @default(autoincrement())
+  name       String?
+  phone      String?
+  message    String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+  is_read    Boolean  @default(false)
+  is_deleted Boolean  @default(false)
+}
