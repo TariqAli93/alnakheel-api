@@ -22,7 +22,7 @@ export const saveImage = async (req, res, next) => {
       */ 
 
       const imageData = {
-        url: imagePath.split('images')[1], // استخراج المسار من اسم الملف
+        url: imagePath, // استخراج المسار من اسم الملف
         filename: req.file.filename,
         mimetype: req.file.mimetype,
         size: req.file.size
