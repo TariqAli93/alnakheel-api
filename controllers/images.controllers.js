@@ -9,17 +9,14 @@ export const saveImage = async (req, res, next) => {
         return res.status(400).json({ error: 'Error uploading image' });
       }
       if (!req.file) {
-        return res.status(400).json({ error: 'No file uploaded' });
+        return res.status(400).json({ 
+          message: 'No file uploaded',
+          success: false
+        });
       }
       // حفظ مسار الصورة في قاعدة البيانات
       const imagePath = req.file.path;
-      
-      /*
-      url
-      filename
-      mimetype
-      size
-      */ 
+    
 
       const imageData = {
         url: imagePath, // استخراج المسار من اسم الملف
@@ -47,3 +44,48 @@ export const saveImage = async (req, res, next) => {
   }
 };
 
+export const deleteImage = async (req, res, next) => {
+  try {
+    const { imageName } = req.params;
+    const image = await imageModel.getImageByName(imageName);
+    if (!image) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+    await imageModel.deleteImage(imageName);
+    uploadService.deleteFile(image.url);
+
+    return res.status(204).json({ message: 'Image deleted successfully', success: true });
+  } catch (error) {
+    console.error('Error deleting image:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const getImageByName = async (req, res, next) => {
+  try {
+    const { imageName } = req.params;
+    const image = await imageModel.getImageByName(imageName);
+    if (!image) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+    return res.status(200).json({  
+      image,
+      message: 'Image fetched successfully',
+      success: true
+    });
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+
+export const getAllImages = async (req, res, next) => {
+  try {
+    const images = await imageModel.getAllImages();
+    return res.status(200).json({ images });
+  } catch (error) {
+    console.error('Error fetching images:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};

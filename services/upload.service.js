@@ -38,6 +38,22 @@ const uploadService = {
    * @returns {Function} multer middleware
    */
   uploadMultiple: (fieldName, maxCount = 10) => upload.array(fieldName, maxCount),
+
+  /**
+   * حذف ملف من النظام
+   * @param {string} filePath - مسار الملف المراد حذفه
+   * @returns {Promise<void>}
+   */
+  deleteFile: (filePath) => {
+    return new Promise((resolve, reject) => {
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
+  }
 };
 
 

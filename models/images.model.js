@@ -30,3 +30,46 @@ export const saveImage = async (imageData) => {
 }
 
 
+export const deleteImage = async (imageName) => {
+  try {
+    // حذف الصورة من قاعدة البيانات
+    const deletedImage = await prisma.images.delete({
+      where: {
+        filename: imageName
+      }
+    });
+  } catch (error) {
+    throw createHttpError(500, "Internal Server Error", {
+      cause: error,
+    });
+  }
+}
+
+export const getImageByName = async (imageName) => {
+  try {
+    // جلب الصورة من قاعدة البيانات
+    const image = await prisma.images.findUnique({
+      where: {
+        filename: imageName
+      }
+    });
+
+    return image;
+  } catch (error) {
+    throw createHttpError(500, "Internal Server Error", {
+      cause: error,
+    });
+  }
+};
+
+export const getAllImages = async () => {
+  try {
+    // جلب جميع الصور من قاعدة البيانات
+    const images = await prisma.images.findMany();
+    return images;
+  } catch (error) {
+    throw createHttpError(500, "Internal Server Error", {
+      cause: error,
+    });
+  }
+};
