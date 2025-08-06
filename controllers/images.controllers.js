@@ -51,7 +51,7 @@ export const deleteImage = async (req, res, next) => {
     if (!image) {
       return res.status(404).json({ error: 'Image not found' });
     }
-    await imageModel.deleteImage(id);
+    await imageModel.deleteImage(parseInt(id));
     uploadService.deleteFile(image.url);
 
     return res.status(204).json({ message: 'Image deleted successfully', success: true });
