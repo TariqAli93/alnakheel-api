@@ -35,7 +35,7 @@ export const deleteImage = async (imageId) => {
     // حذف الصورة من قاعدة البيانات
     const deletedImage = await prisma.images.delete({
       where: {
-        id: imageId * 1
+        id: parseInt(imageId)
       }
     });
 
