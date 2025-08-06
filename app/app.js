@@ -60,4 +60,7 @@ clientsRouter(app);
 webMessagesRouter(app);
 imagesRouter(app);
 
+
+console.log("API is running on port 3003");
+
 export default app;
