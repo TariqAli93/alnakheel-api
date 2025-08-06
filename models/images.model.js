@@ -35,9 +35,11 @@ export const deleteImage = async (imageId) => {
     // حذف الصورة من قاعدة البيانات
     const deletedImage = await prisma.images.delete({
       where: {
-        id: imageId
+        id: imageId * 1
       }
     });
+
+    return deletedImage;
   } catch (error) {
     throw createHttpError(500, "Internal Server Error", {
       cause: error,
