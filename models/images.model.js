@@ -69,7 +69,7 @@ export const getImageById = async (imageId) => {
     // جلب الصورة من قاعدة البيانات
     const image = await prisma.images.findFirst({
       where: {
-        id: imageId
+        id: imageId * 1 // تحويل إلى عدد صحيح
       }
     });
 
