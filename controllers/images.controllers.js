@@ -14,7 +14,32 @@ export const saveImage = async (req, res, next) => {
       // حفظ مسار الصورة في قاعدة البيانات
       const imagePath = req.file.path;
       
-      return res.status(201).json(imagePath);
+      /*
+      url
+      filename
+      mimetype
+      size
+      */ 
+
+      const imageData = {
+        url: imagePath.split('images')[1], // استخراج المسار من اسم الملف
+        filename: req.file.filename,
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      };
+
+      // await imageModel.saveImage(imageData);
+      // إرجاع استجابة بنجاح
+      return res.status(201).json({
+        message: 'Image uploaded successfully',
+        image: {
+          url: imageData.url,
+          filename: imageData.filename,
+          mimetype: imageData.mimetype,
+          size: imageData.size
+        },
+        success: true
+      });
     });
   } catch (error) {
     console.error('Error saving image:', error);
