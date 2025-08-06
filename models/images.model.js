@@ -30,24 +30,4 @@ export const saveImage = async (url,filename, mimetype, size) => {
   }
 }
 
-export const deleteImage = async (id) => {
-  try {
-    // تحقق من وجود الصورة
-    const image = await prisma.images.findUnique({
-      where: { id: id },
-    });
 
-    if (!image) {
-      throw createHttpError(404, "Image not found");
-    }
-
-    // حذف الصورة من قاعدة البيانات
-    await prisma.images.delete({
-      where: { id: id },
-    });
-
-    return image;
-  } catch (error) {
-    throw createHttpError(500, "Internal Server Error");
-  }
-}
