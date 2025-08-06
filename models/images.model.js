@@ -2,12 +2,12 @@ import createHttpError from "http-errors";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
-export const saveImage = async (url,filename, mimetype, size) => {
+export const saveImage = async (imageData) => {
   try {
     // تحقق من وجود ملف بنفس الاسم
     const existingImage = await prisma.images.findFirst({
       where: {
-        filename: filename
+        filename: imageData.filename
       },
     });
 
@@ -17,13 +17,8 @@ export const saveImage = async (url,filename, mimetype, size) => {
 
     // حفظ الصورة في قاعدة البيانات
     const image = await prisma.images.create({
-      data: {
-        url: url,
-        filename: filename,
-        mimetype: mimetype,
-        size: size,
-      },
-    });
+      data: imageData
+    })
 
 
     return image;
