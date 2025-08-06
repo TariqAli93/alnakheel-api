@@ -5,8 +5,10 @@ const prisma = new PrismaClient();
 export const saveImage = async (url,filename, mimetype, size) => {
   try {
     // تحقق من وجود ملف بنفس الاسم
-    const existingImage = await prisma.images.findUnique({
-      where: { url: filename },
+    const existingImage = await prisma.images.findFirst({
+      where: {
+        filename: filename
+      },
     });
 
     if (existingImage) {
