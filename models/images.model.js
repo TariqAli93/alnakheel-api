@@ -48,7 +48,7 @@ export const deleteImage = async (imageName) => {
 export const getImageByName = async (imageName) => {
   try {
     // جلب الصورة من قاعدة البيانات
-    const image = await prisma.images.findUnique({
+    const image = await prisma.images.findFirst({
       where: {
         filename: imageName
       }
