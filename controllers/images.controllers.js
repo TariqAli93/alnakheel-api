@@ -46,12 +46,12 @@ export const saveImage = async (req, res, next) => {
 
 export const deleteImage = async (req, res, next) => {
   try {
-    const { imageName } = req.params;
-    const image = await imageModel.getImageByName(imageName);
+    const { id } = req.params;
+    const image = await imageModel.getImageById(id);
     if (!image) {
       return res.status(404).json({ error: 'Image not found' });
     }
-    await imageModel.deleteImage(imageName);
+    await imageModel.deleteImage(id);
     uploadService.deleteFile(image.url);
 
     return res.status(204).json({ message: 'Image deleted successfully', success: true });
@@ -79,11 +79,32 @@ export const getImageByName = async (req, res, next) => {
   }
 };
 
+export const getImageById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const image = await imageModel.getImageById(id);
+    if (!image) {
+      return res.status(404).json({ error: 'Image not found' });
+    }
+    return res.status(200).json({
+      image,
+      message: 'Image fetched successfully',
+      success: true
+    });
+  } catch (error) {
+    console.error('Error fetching image:', error);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+};
 
 export const getAllImages = async (req, res, next) => {
   try {
     const images = await imageModel.getAllImages();
-    return res.status(200).json({ images });
+    return res.status(200).json({
+      images,
+      message: 'Images fetched successfully',
+      success: true
+    });
   } catch (error) {
     console.error('Error fetching images:', error);
     return res.status(500).json({ error: 'Internal server error' });

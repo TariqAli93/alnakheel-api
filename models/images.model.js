@@ -30,12 +30,12 @@ export const saveImage = async (imageData) => {
 }
 
 
-export const deleteImage = async (imageName) => {
+export const deleteImage = async (imageId) => {
   try {
     // حذف الصورة من قاعدة البيانات
     const deletedImage = await prisma.images.delete({
       where: {
-        filename: imageName
+        id: imageId
       }
     });
   } catch (error) {
@@ -51,6 +51,23 @@ export const getImageByName = async (imageName) => {
     const image = await prisma.images.findFirst({
       where: {
         filename: imageName
+      }
+    });
+
+    return image;
+  } catch (error) {
+    throw createHttpError(500, "Internal Server Error", {
+      cause: error,
+    });
+  }
+};
+
+export const getImageById = async (imageId) => {
+  try {
+    // جلب الصورة من قاعدة البيانات
+    const image = await prisma.images.findFirst({
+      where: {
+        id: imageId
       }
     });
 
