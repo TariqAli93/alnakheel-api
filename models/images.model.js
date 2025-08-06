@@ -26,7 +26,9 @@ export const saveImage = async (url,filename, mimetype, size) => {
 
     return image;
   } catch (error) {
-    throw createHttpError(500, "Internal Server Error");
+    throw createHttpError(500, "Internal Server Error", {
+      cause: error,
+    });
   }
 }
 
