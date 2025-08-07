@@ -1,10 +1,10 @@
 import * as imageModel from '../models/images.model.js';
-import uploadService from '../services/upload.service.js';
+import fileService from '../services/file.service.js';
 
 export const saveImage = async (req, res, next) => {
   try {
     // استخدام خدمة الرفع لرفع صورة واحدة
-    uploadService.uploadSingle('image')(req, res, async (err) => {
+    fileService.uploadSingle('image')(req, res, async (err) => {
       if (err) {
         return res.status(400).json({ error: 'Error uploading image' });
       }
@@ -25,15 +25,16 @@ export const saveImage = async (req, res, next) => {
         size: req.file.size
       };
 
-      await imageModel.saveImage(imageData);
+      const savedImage = await imageModel.saveImage(imageData);
       // إرجاع استجابة بنجاح
       return res.status(201).json({
         message: 'Image uploaded successfully',
         image: {
-          url: imageData.url,
-          filename: imageData.filename,
-          mimetype: imageData.mimetype,
-          size: imageData.size
+          id: savedImage.id,
+          url: savedImage.url,
+          filename: savedImage.filename,
+          mimetype: savedImage.mimetype,
+          size: savedImage.size
         },
         success: true
       });
@@ -52,7 +53,7 @@ export const deleteImage = async (req, res, next) => {
       return res.status(404).json({ error: 'Image not found' });
     }
     await imageModel.deleteImage(parseInt(id));
-    uploadService.deleteFile(image.url);
+    fileService.deleteFile(image.url);
 
     return res.status(204).json({ message: 'Image deleted successfully', success: true });
   } catch (error) {

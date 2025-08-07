@@ -37,7 +37,12 @@ export const getProperties = async () => {
       include: {
         PropertyClient: {
           include: {
-            client: true
+            client: true,
+          }
+        },
+        PropertyImages: {
+          include: {
+            image: true
           }
         }
       },
@@ -61,6 +66,11 @@ export const getPropertyById = async (id) => {
         PropertyClient: {
           include: {
             client: true
+          }
+        },
+        PropertyImages: {
+          include: {
+            image: true
           }
         }
       }

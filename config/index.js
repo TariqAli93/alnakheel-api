@@ -2,7 +2,8 @@ import { config } from "dotenv";
 import path from "path";
 import { object, string, number } from "zod";
 
-const pathName = path.resolve(process.cwd(), `.env`);
+
+const pathName = process.env.NODE_ENV === "development" ? path.resolve(process.cwd(), `.env.development`) : path.resolve(process.cwd(), `.env.production`)
 
 // Load environment variables from the specified file
 config({ path: pathName });

@@ -1,4 +1,5 @@
 import https from "https";
+import http from "http";
 import app from "./app/app.js";
 import { Config } from "./config/index.js";
 import logger from "./config/logger.js";
@@ -11,7 +12,10 @@ const sslOptions = {
   cert: fs.readFileSync("./certs/alnakhel_online.crt")
 };
 
-const server = https.createServer(sslOptions, app);
+// const server = https.createServer(sslOptions, app);
+const server = process.env.NODE_ENV === "production"
+  ? https.createServer(sslOptions, app)
+  : http.createServer(app);
 
 server.listen(PORT, () => {
   if (NODE_ENV === "development") {
