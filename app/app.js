@@ -54,6 +54,25 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.static("public")); // لخدمة ملفات public
 app.use(express.static("images"));
 
+app.get("/public/images", async (req, res) => {
+  try {
+    const dir = path.join(__dirname, "images");
+    const files = await fs.readdir(dir);
+    // فلترة الامتدادات الشائعة
+    const exts = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"]);
+    const images = files.filter(f => exts.has(path.extname(f).toLowerCase()));
+    // رجّع أسماء + روابط جاهزة للوصول
+    const result = images.map(name => ({
+      name,
+      url: `/images/${encodeURIComponent(name)}`
+    }));
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to list images" });
+  }
+});
+
 // Initialize routes
 usersRouter(app);
 propertiesRouter(app);
