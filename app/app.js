@@ -52,7 +52,7 @@ app.use("/api", authMiddleware);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.static("public")); // لخدمة ملفات public
-app.use(express.static(path.join(__dirname, "images")));
+app.use(express.static("images"));
 
 // Initialize routes
 usersRouter(app);
