@@ -53,7 +53,7 @@ app.use("/api", authMiddleware);
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.static("public")); // لخدمة ملفات public
-app.use(express.static("images"));
+app.use(express.static(path.join(process.cwd(), "images"))); // لخدمة ملفات الصور
 
 app.get("/public/images", async (req, res) => {
   try {
