@@ -75,9 +75,10 @@ app.get("/public/images", async (req, res) => {
   }
 });
 
-app.get("/public/image/:name", (req, res) => {
+app.get("/public/images/:name", (req, res) => {
   const safeName = path.basename(req.params.name); // يمنع ../
   const fullPath = path.join(process.cwd(), "images", safeName);
+  console.log(`Serving image: ${fullPath}`);
   res.sendFile(fullPath, err => {
     if (err) {
       res.status(err.code === "ENOENT" ? 404 : 500).json({ error: "Not found" });
