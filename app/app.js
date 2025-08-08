@@ -33,7 +33,9 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(morgan("dev"));
 
 //Middlewares Init
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" } // أو false لتعطيله
+}));
 app.use(api_compression);
 
 app.use((err, req, res, next) => {
