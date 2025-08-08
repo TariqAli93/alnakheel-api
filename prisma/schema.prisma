@@ -87,7 +87,7 @@ model PropertyClient {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
-  property Properties @relation(fields: [propertyId], references: [id])
+  property Properties @relation(fields: [propertyId], references: [id], onDelete: Cascade)
   client   Client     @relation(fields: [clientId], references: [id])
 }
 
@@ -110,7 +110,7 @@ model PropertyImages {
   updatedAt  DateTime @default(now()) @updatedAt
 
   property Properties @relation(fields: [propertyId], references: [id])
-  image    Images     @relation(fields: [imageId], references: [id])
+  image    Images     @relation(fields: [imageId], references: [id], onDelete: Cascade)
 }
 
 model webMessages {

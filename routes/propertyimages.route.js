@@ -3,7 +3,7 @@ import * as propertyImagesController from '../controllers/propertyimages.control
 const propertyimagesRouter = (app) => {
   app.post('/api/propertyimages', propertyImagesController.createPropertyImage);
   app.get('/api/propertyimages', propertyImagesController.getPropertyImages);
-  app.delete('/api/propertyimages/:propertyId/:imageId', propertyImagesController.deletePropertyImage);
+  app.delete('/api/propertyimages', propertyImagesController.deletePropertyImage);
 }
 
 export default propertyimagesRouter;

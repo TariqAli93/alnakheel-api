@@ -45,12 +45,36 @@ export const getPropertyImages = async (req, res, next) => {
 };
 
 export const deletePropertyImage = async (req, res, next) => {
-  const { propertyId, imageId } = req.params;
   try {
-    const deletedPropertyImage = await propertyImagesModel.deletePropertyImage(propertyId, imageId);
-    res.status(204).send({
+    // من الـ query حسب مسارك الحالي
+    const propertyId = Number(req.query.propertyId);
+    const imageId = Number(req.query.imageId);
+
+    if (!propertyId || !imageId) {
+      return res.status(400).json({ message: "propertyId and imageId are required" });
+    }
+
+    // جيب الوصلة + بيانات الصورة
+    const link = await propertyImagesModel.getPropertyImage(propertyId, imageId);
+    if (!link) {
+      return res.status(404).json({ message: "Property image not found" });
+    }
+
+    // خذ مسار الملف من جدول Images
+    const filePath = link.image?.url; // تأكد كيف تخزن المسار بالضبط (url أو path)
+
+    // احذف الوصلة ثم الصورة (هنا نتجنب P2003)
+    await propertyImagesModel.deletePropertyImageLink(propertyId, imageId);
+    await imageManagerService.deleteImage(imageId);
+
+    // أحذف الملف من القرص (بعد نجاح DB)
+    if (filePath) {
+      await uploadService.deleteFile(filePath);
+    }
+
+    // 200 OK مع رسالة (لا ترسل body مع 204)
+    return res.status(200).json({
       message: "Property image deleted successfully",
-      deletedPropertyImage: deletedPropertyImage,
       success: true
     });
   } catch (error) {
