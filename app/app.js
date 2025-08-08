@@ -75,7 +75,7 @@ app.get("/public/images", async (req, res) => {
   }
 });
 
-app.get("/api/image/:name", (req, res) => {
+app.get("/public/image/:name", (req, res) => {
   const safeName = path.basename(req.params.name); // يمنع ../
   const fullPath = path.join(process.cwd(), "images", safeName);
   res.sendFile(fullPath, err => {
