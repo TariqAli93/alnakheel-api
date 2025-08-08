@@ -75,16 +75,29 @@ app.get("/public/images", async (req, res) => {
   }
 });
 
+import path from "path";
+
 app.get("/public/images/:name", (req, res) => {
   const safeName = path.basename(req.params.name); // يمنع ../
   const fullPath = path.join(process.cwd(), "images", safeName);
-  console.log(`Serving image: ${fullPath}`);
+
+  // 👇 مهم: هيدرز تسمح بالعرض عبر cross-origin
+  res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"); // يحل NotSameOrigin
+  res.setHeader("Access-Control-Allow-Origin", "*");             // لو راح تستخدم الصورة في <canvas> أو تحميل عبر fetch
+  res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
+
+  // (اختياري) تحديد نوع المحتوى
+  const ext = path.extname(safeName).toLowerCase();
+  const m = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml" };
+  if (m[ext]) res.type(m[ext]);
+
   res.sendFile(fullPath, err => {
     if (err) {
-      res.status(err.code === "ENOENT" ? 404 : 500).json({ error: "Not found" });
+      res.status(err?.code === "ENOENT" ? 404 : 500).json({ error: "Not found" });
     }
   });
 });
+
 
 // Initialize routes
 usersRouter(app);
