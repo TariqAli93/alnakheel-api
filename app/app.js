@@ -57,6 +57,7 @@ app.use(express.static("images"));
 app.get("/public/images", async (req, res) => {
   try {
     const dir = path.join(__dirname, "images");
+    console.log(dir);
     const files = await fs.readdir(dir);
     // فلترة الامتدادات الشائعة
     const exts = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"]);
