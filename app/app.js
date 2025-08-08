@@ -77,7 +77,6 @@ app.get("/public/images", async (req, res) => {
   }
 });
 
-import path from "path";
 
 app.get("/public/images/:name", (req, res) => {
   const safeName = path.basename(req.params.name); // يمنع ../
