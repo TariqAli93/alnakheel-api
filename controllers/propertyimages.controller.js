@@ -1,14 +1,31 @@
 import * as propertyImagesModel from '../models/propertyimages.model.js';
+import imageManagerService from '../services/imageManager.services.js';
+import uploadService from '../utils/file.utils.js'
 
 export const createPropertyImage = async (req, res, next) => {
-  const { propertyId, imageId } = req.body;
   try {
-    const propertyImage = await propertyImagesModel.createPropertyImage(propertyId, imageId);
-    res.status(201).json({
-      message: "Property image created successfully",
-      propertyImage: propertyImage,
-      success: true
-    });
+    uploadService.uploadSingle('image')(req, res, async (err) => {
+      const { propertyId } = req.body
+      console.log("Property ID:", propertyId);
+      if (err) {
+        return next(err);
+      }
+      if (!req.file) {
+        return next(new Error("No file uploaded"));
+      }
+      const image = await imageManagerService.createImage({
+        url: req.file.path,
+        filename: req.file.filename,
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      })
+      const propertyImage = await propertyImagesModel.createPropertyImage(propertyId, image.id);
+      res.status(201).json({
+        message: "Property image created successfully",
+        propertyImage: propertyImage,
+        success: true
+      });
+    })
   } catch (error) {
     next(error);
   }

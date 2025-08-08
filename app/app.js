@@ -19,7 +19,6 @@ import usersRouter from "../routes/users.route.js";
 import propertiesRouter from "../routes/properties.route.js";
 import clientsRouter from "../routes/clients.route.js";
 import webMessagesRouter from "../routes/webMessages.route.js";
-import imagesRouter from "../routes/images.route.js";
 import propertyimagesRouter from "../routes/propertyimages.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -59,7 +58,6 @@ usersRouter(app);
 propertiesRouter(app);
 clientsRouter(app);
 webMessagesRouter(app);
-imagesRouter(app);
 propertyimagesRouter(app);
 
 console.log("API is running on port 3003");

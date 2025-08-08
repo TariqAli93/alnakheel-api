@@ -7,13 +7,13 @@ export const createPropertyImage = async (propertyId, imageId) => {
   try {
     const propertyImage = await prisma.propertyImages.create({
       data: {
-        propertyId: propertyId,
+        propertyId: parseInt(propertyId, 10),
         imageId: imageId
       }
     })
     return propertyImage;
   } catch (error) {
-    throw createHttpError(500, "Failed to create property image");
+    throw createHttpError(500, "Failed to create property image", error);
   }
 }
 export const getPropertyImages = async (propertyId) => {
