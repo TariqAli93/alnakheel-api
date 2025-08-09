@@ -21,6 +21,7 @@ import propertiesRouter from "../routes/properties.route.js";
 import clientsRouter from "../routes/clients.route.js";
 import webMessagesRouter from "../routes/webMessages.route.js";
 import propertyimagesRouter from "../routes/propertyimages.route.js";
+import propertyVideosRouter from "../routes/propertyVideos.route.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,9 +34,11 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(morgan("dev"));
 
 //Middlewares Init
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" } // أو false لتعطيله
-}));
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: "cross-origin" } // أو false لتعطيله
+  })
+);
 app.use(api_compression);
 
 app.use((err, req, res, next) => {
@@ -64,9 +67,9 @@ app.get("/public/images", async (req, res) => {
     const files = await fs.readdir(dir);
     // فلترة الامتدادات الشائعة
     const exts = new Set([".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg"]);
-    const images = files.filter(f => exts.has(path.extname(f).toLowerCase()));
+    const images = files.filter((f) => exts.has(path.extname(f).toLowerCase()));
     // رجّع أسماء + روابط جاهزة للوصول
-    const result = images.map(name => ({
+    const result = images.map((name) => ({
       name,
       url: `/images/${encodeURIComponent(name)}`
     }));
@@ -77,14 +80,13 @@ app.get("/public/images", async (req, res) => {
   }
 });
 
-
 app.get("/public/images/:name", (req, res) => {
   const safeName = path.basename(req.params.name); // يمنع ../
   const fullPath = path.join(process.cwd(), "images", safeName);
 
   // 👇 مهم: هيدرز تسمح بالعرض عبر cross-origin
   res.setHeader("Cross-Origin-Resource-Policy", "cross-origin"); // يحل NotSameOrigin
-  res.setHeader("Access-Control-Allow-Origin", "*");             // لو راح تستخدم الصورة في <canvas> أو تحميل عبر fetch
+  res.setHeader("Access-Control-Allow-Origin", "*"); // لو راح تستخدم الصورة في <canvas> أو تحميل عبر fetch
   res.setHeader("Cache-Control", "public, max-age=31536000, immutable");
 
   // (اختياري) تحديد نوع المحتوى
@@ -92,13 +94,12 @@ app.get("/public/images/:name", (req, res) => {
   const m = { ".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".gif": "image/gif", ".svg": "image/svg+xml" };
   if (m[ext]) res.type(m[ext]);
 
-  res.sendFile(fullPath, err => {
+  res.sendFile(fullPath, (err) => {
     if (err) {
       res.status(err?.code === "ENOENT" ? 404 : 500).json({ error: "Not found" });
     }
   });
 });
-
 
 // Initialize routes
 usersRouter(app);
@@ -106,5 +107,6 @@ propertiesRouter(app);
 clientsRouter(app);
 webMessagesRouter(app);
 propertyimagesRouter(app);
+propertyVideosRouter(app);
 
 export default app;

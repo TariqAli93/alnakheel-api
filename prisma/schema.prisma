@@ -68,6 +68,7 @@ model Properties {
   usersId        Int?
   PropertyClient PropertyClient[]
   PropertyImages PropertyImages[]
+  PropertyVideos PropertyVideos[]
 }
 
 model Client {
@@ -111,6 +112,22 @@ model PropertyImages {
 
   property Properties @relation(fields: [propertyId], references: [id])
   image    Images     @relation(fields: [imageId], references: [id], onDelete: Cascade)
+}
+
+enum VideoPlatform {
+  YOUTUBE
+  VIMEO
+  DAILYMOTION
+}
+
+model PropertyVideos {
+  id            Int           @id @default(autoincrement())
+  url           String
+  videoPlatform VideoPlatform @default(YOUTUBE)
+  propertyId    Int
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
+  property      Properties    @relation(fields: [propertyId], references: [id], onDelete: Cascade)
 }
 
 model webMessages {
