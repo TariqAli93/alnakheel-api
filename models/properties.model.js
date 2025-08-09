@@ -37,14 +37,15 @@ export const getProperties = async () => {
       include: {
         PropertyClient: {
           include: {
-            client: true,
+            client: true
           }
         },
         PropertyImages: {
           include: {
             image: true
           }
-        }
+        },
+        PropertyVideos: true
       },
       where: {
         is_deleted: false
@@ -72,7 +73,8 @@ export const getPropertyById = async (id) => {
           include: {
             image: true
           }
-        }
+        },
+        PropertyVideos: true
       }
     });
     if (!property) {

@@ -39,9 +39,9 @@ export const updatePropertyVideo = async (id, data) => {
 export const deletePropertyVideo = async (id) => {
   try {
     await prisma.propertyVideos.delete({
-      where: { id }
+      where: { id: Number(id) }
     });
   } catch (error) {
-    throw createHttpError(500, "Error deleting property video");
+    throw createHttpError(500, "Error deleting property video", error);
   }
 };

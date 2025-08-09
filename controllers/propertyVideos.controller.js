@@ -45,8 +45,16 @@ export const updatePropertyVideo = async (req, res, next) => {
 };
 
 export const deletePropertyVideo = async (req, res, next) => {
+  const { id } = req.params;
+
+  if (!id) {
+    return res.status(400).json({
+      message: "Property video ID is required",
+      success: false
+    });
+  }
   try {
-    await propertyVideosModel.deletePropertyVideo(req.params.id);
+    await propertyVideosModel.deletePropertyVideo(id);
     res.status(204).json({
       message: "Property video deleted successfully",
       success: true
