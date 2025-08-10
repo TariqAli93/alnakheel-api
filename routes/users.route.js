@@ -367,6 +367,10 @@ const usersRouter = (app) => {
   app.get("/api/users/:username", userController.getUserByUsername);
   app.put("/api/users/:id", userController.updatedUser);
   app.delete("/api/users/:id", userController.deleteUser);
+  app.delete("/api/users/permanently/:id", userController.deleteUserPermanently);
+  app.put("/api/users/active/:id", userController.activeUser);
+  app.put("/api/users/disactive/:id", userController.disactiveUser);
+  app.put("/api/user/restore/:id", userController.undeleteUser);
 };
 
 export default usersRouter;

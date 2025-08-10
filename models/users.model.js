@@ -28,7 +28,7 @@ export const createUser = async (data) => {
 export const getUserByUsername = async (username) => {
   try {
     const user = await prisma.users.findUnique({
-      where: { username, is_deleted: false }
+      where: { username }
     });
     return user;
   } catch (error) {
@@ -39,7 +39,7 @@ export const getUserByUsername = async (username) => {
 export const getUserById = async (id) => {
   try {
     const user = await prisma.users.findUnique({
-      where: { id, is_deleted: false }
+      where: { id }
     });
     return user;
   } catch (error) {
@@ -50,7 +50,6 @@ export const getUserById = async (id) => {
 export const getAllUsers = async () => {
   try {
     const users = await prisma.users.findMany({
-      where: { is_deleted: false },
       orderBy: { created_at: "desc" }
     });
     return users;
@@ -62,7 +61,7 @@ export const getAllUsers = async () => {
 export const updateUser = async (id, data) => {
   try {
     const user = await prisma.users.update({
-      where: { id },
+      where: { id: Number(id) },
       data
     });
     return user;
@@ -74,8 +73,20 @@ export const updateUser = async (id, data) => {
 export const deleteUser = async (id) => {
   try {
     const user = await prisma.users.update({
-      where: { id },
+      where: { id: Number(id) },
       data: { is_deleted: true }
+    });
+    return user;
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    throw createHttpError(500, "User deletion failed");
+  }
+};
+
+export const deleteUserPermanently = async (id) => {
+  try {
+    const user = await prisma.users.delete({
+      where: { id: Number(id) }
     });
     return user;
   } catch (error) {
