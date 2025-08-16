@@ -82,7 +82,7 @@ export const getPropertyById = async (id) => {
     }
     return property;
   } catch (error) {
-    throw createHttpError(500, "Internal server error");
+    throw createHttpError(500, "Internal server error", error);
   }
 };
 export const createProperty = async (data) => {
